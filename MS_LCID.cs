@@ -16,7 +16,7 @@ namespace Edit_Exclude_Dict
         // The values in this dictionary are from the table in Appendix A: Product Behavior 
         // of Microsoft's Windows Language Code Identifier (LCID) Reference document
         // via an Excel workbook (see the Supporting Files folder).
-        Dictionary<string, string> MS_LCID_Table = new Dictionary<string, string>
+        readonly Dictionary<string, string> MS_LCID_Table = new Dictionary<string, string>
         {
             ["1000"] = "Afar",
             ["1000"] = "Afar Djibouti",
@@ -882,6 +882,17 @@ namespace Edit_Exclude_Dict
             ["0435"] = "Zulu South Africa"
         };
 
+        string GetLanguageName(string LCID)
+        {
+            if (MS_LCID_Table.ContainsKey(LCID))
+            {
+                return MS_LCID_Table[LCID];
+            }
+            else
+            {
+                return "LCID not found in MS_LCID_Table";
+            }
+        }
     }
 }
  
