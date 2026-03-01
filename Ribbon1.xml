@@ -1,0 +1,16 @@
+﻿<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui">
+	<ribbon>
+		<tabs>
+			<tab idMso="TabReviewWord">
+				<group id="EDGroup" label="Exclude Dict">
+					<button id="EDEdit" onAction="Production.EELOpenEditor" 
+					size="large" label="Edit" supertip="Open the Edit Exclude Dictionary panel." />
+					<dialogBoxLauncher>
+						<button id="EDAbout" label="Exclude Dict About" onAction="Production.EELAbout"
+							supertip="Open the Exclude Dict About panel." />
+					</dialogBoxLauncher>
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>
