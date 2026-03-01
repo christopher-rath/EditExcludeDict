@@ -1,4 +1,7 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿// place near top of file with other using directives
+using System.Drawing;
+using System.Windows.Forms;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,11 +40,32 @@ namespace Edit_Exclude_Dict
             this.ribbon = ribbonUI;
         }
 
-        public void OnTextButton(Office.IRibbonControl control)
+        public void OnEDEdit(Office.IRibbonControl control)
         {
             Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
             currentRange.Text = "This text was added by the Ribbon.";
         }        
+
+        // callback used by Ribbon1.xml: getImage="GetEDEditImage"
+        public stdole.IPictureDisp GetEDEditImage(Office.IRibbonControl control)
+        {
+            // If you added the icon to Resources:
+            //return PictureConverter.Convert(Properties.Resources.EditExcludeLists.ToBitmap());
+
+            // OR if you added the .ico as an embedded resource:
+            var asm = Assembly.GetExecutingAssembly();
+            using (Stream s = asm.GetManifestResourceStream("Edit_Exclude_Dict.Resources.EditExcludeLists.ico")) // adjust resource name if different
+            {
+                if (s != null)
+                {
+                    using (Icon ico = new Icon(s))
+                    {
+                        return PictureConverter.Convert(ico.ToBitmap());
+                    }
+                }
+            }
+            return null;
+        }
         #endregion
 
         #region Helpers
@@ -67,5 +91,15 @@ namespace Edit_Exclude_Dict
         }
 
         #endregion
+    }
+
+    // helper to convert Image -> IPictureDisp
+    public class PictureConverter : AxHost
+    {
+        private PictureConverter() : base(string.Empty) { }
+        public static stdole.IPictureDisp Convert(Image image)
+        {
+            return (stdole.IPictureDisp)AxHost.GetIPictureDispFromPicture(image);
+        }
     }
 }
