@@ -9,9 +9,9 @@ using System.Security;
 [assembly: AssemblyTitle("Edit Exclude Dict")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP Inc.")]
+[assembly: AssemblyCompany("Thought-Sight Consulting Inc.")]
 [assembly: AssemblyProduct("Edit Exclude Dict")]
-[assembly: AssemblyCopyright("Copyright © HP Inc. 2026")]
+[assembly: AssemblyCopyright("Copyright © 2026 Christopher Rath")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
 
