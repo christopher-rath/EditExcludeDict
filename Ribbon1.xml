@@ -6,7 +6,7 @@
 					<button id="EDEdit" onAction="OnEDEdit" getImage="GetEDEditImage"
 					size="large" label="Edit" supertip="Open the Edit Exclude Dictionary panel." />
 					<dialogBoxLauncher>
-						<button id="EDAbout" label="Exclude Dict About" onAction="Production.EELAbout"
+						<button id="EDAbout" label="Exclude Dict About" onAction="OnEELAbout"
 							supertip="Open the Exclude Dict About panel." />
 					</dialogBoxLauncher>
 				</group>

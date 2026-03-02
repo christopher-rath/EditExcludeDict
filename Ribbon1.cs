@@ -46,13 +46,16 @@ namespace Edit_Exclude_Dict
             currentRange.Text = "This text was added by the Ribbon.";
         }        
 
+        public void OnEELAbout(Office.IRibbonControl control)
+        {
+            About aboutForm = new About();
+            aboutForm.ShowDialog();
+        }
+
         // callback used by Ribbon1.xml: getImage="GetEDEditImage"
         public stdole.IPictureDisp GetEDEditImage(Office.IRibbonControl control)
         {
-            // If you added the icon to Resources:
-            //return PictureConverter.Convert(Properties.Resources.EditExcludeLists.ToBitmap());
-
-            // OR if you added the .ico as an embedded resource:
+            // Access .ico as an embedded resource:
             var asm = Assembly.GetExecutingAssembly();
             using (Stream s = asm.GetManifestResourceStream("Edit_Exclude_Dict.Resources.EditExcludeLists.ico")) // adjust resource name if different
             {

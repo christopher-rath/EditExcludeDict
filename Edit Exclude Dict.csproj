@@ -185,10 +185,29 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="License.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="License.Designer.cs">
+      <DependentUpon>License.cs</DependentUpon>
+    </Compile>
     <Compile Include="MS_LCID.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="License.resx">
+      <DependentUpon>License.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -199,6 +218,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Edit Exclude Dict_TemporaryKey.pfx" />
+    <EmbeddedResource Include="Resources\About_EditExcludeDict.rtf" />
+    <EmbeddedResource Include="Resources\GNU_LGPL.rtf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -222,7 +243,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Ribbon1.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Properties\GNU_LGPL.txt" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\EditExcludeLists.ico" />
   </ItemGroup>

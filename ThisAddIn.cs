@@ -35,7 +35,20 @@ namespace Edit_Exclude_Dict
             this.Startup += new System.EventHandler(ThisAddIn_Startup);
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
-        
+
         #endregion
+        public static class Constants
+        {
+            public const string sAppName = @"Exclude Dictionary";
+            public const string sPlatform = @"Windows 11";
+            public const string sCopyright = @"2024{\'96}2026"; // "{\'96}" is an RTF en dash character.
+            public const string sVersion = @"2.0"; // --> Also update in "AssemblyInfo.cs" <--
+            public const string sVersionToRepl = @"[@Version String@]";
+            public const string sPlatformToRepl = @"[@Platform String@]";
+            public const string sCopyrightToRepl = @"[@Copyright Date@]";
+            public const string sAppIniFileNm = @".ExcludeDict.ini";
+            public const string sAuthorEmail = @"christopher@rath.ca";
+
+        }
     }
 }
