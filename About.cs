@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static Edit_Exclude_Dict.ThisAddIn;
+
+namespace Edit_Exclude_Dict
+{
+    public partial class About : Form
+    {
+        public About()
+        {
+            string aboutStr;
+            var aboutStrFlPath = @"Edit_Exclude_Dict.Resources.About_EditExcludeDict.rtf";
+
+            InitializeComponent();
+
+            try
+            {
+                var asm = Assembly.GetExecutingAssembly();
+                using (var s = asm.GetManifestResourceStream(aboutStrFlPath))
+                using (var r = new StreamReader(s))
+                {
+                    aboutStr = r.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                aboutStr = @"Unexpected error (" + e.Message 
+                    + @") reading About string from Properties file,\par{\tab{" + aboutStrFlPath + @"}}";
+            }
+
+            // Note: URLs in the about text do not automatically render in the About dialog as clickable links.
+            // This is a known issue: https://github.com/dotnet/winforms/issues/3632
+            //
+            // 2023-12-24 (v0.7): I've implemented code to manually detect URLs as the panel is loaded.
+            aboutStr = aboutStr.Replace(Constants.sVersionToRepl, Constants.sVersion);
+            aboutStr = aboutStr.Replace(Constants.sPlatformToRepl, Constants.sPlatform);
+            aboutStr = aboutStr.Replace(Constants.sCopyrightToRepl, Constants.sCopyright);
+            rtbAbout.DetectUrls = true;
+            rtbAbout.Rtf = aboutStr;
+        }
+
+        private void rtbAbout_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnViewLicense_Click(object sender, EventArgs e)
+        {
+            License licenseForm = new License();
+            licenseForm.ShowDialog();
+            btnOK.Select();
+        }
+    }
+}
