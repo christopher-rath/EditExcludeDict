@@ -42,8 +42,8 @@ namespace Edit_Exclude_Dict
 
         public void OnEDEdit(Office.IRibbonControl control)
         {
-            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
-            currentRange.Text = "This text was added by the Ribbon.";
+            ChooseLanguage chooseLanguageForm = new ChooseLanguage();
+            chooseLanguageForm.ShowDialog();
         }        
 
         public void OnEELAbout(Office.IRibbonControl control)
