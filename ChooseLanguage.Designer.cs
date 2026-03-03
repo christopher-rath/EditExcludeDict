@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChooseLanguage));
             this.lbLanguageLists = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblTitle = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.cbRemeberSelection = new System.Windows.Forms.CheckBox();
@@ -46,18 +46,18 @@
             this.lbLanguageLists.Size = new System.Drawing.Size(776, 304);
             this.lbLanguageLists.TabIndex = 0;
             // 
-            // textBox1
+            // lblTitle
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(762, 43);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "The following languages have an Exclude Dictionary on your computer.  Select the " +
+            this.lblTitle.BackColor = System.Drawing.SystemColors.Control;
+            this.lblTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblTitle.Enabled = false;
+            this.lblTitle.Location = new System.Drawing.Point(12, 12);
+            this.lblTitle.Multiline = true;
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.ReadOnly = true;
+            this.lblTitle.Size = new System.Drawing.Size(762, 43);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "The following languages have an Exclude Dictionary on your computer.  Select the " +
     "lists to be edited during this session.";
             // 
             // btnCancel
@@ -110,7 +110,7 @@
             this.Controls.Add(this.cbRemeberSelection);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lbLanguageLists);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChooseLanguage";
@@ -123,7 +123,7 @@
         #endregion
 
         private System.Windows.Forms.ListBox lbLanguageLists;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox lblTitle;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.CheckBox cbRemeberSelection;
