@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.Office.Tools.Word;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Word = Microsoft.Office.Interop.Word;
 using Office = Microsoft.Office.Core;
-using Microsoft.Office.Tools.Word;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace Edit_Exclude_Dict
 {
@@ -39,6 +40,7 @@ namespace Edit_Exclude_Dict
         #endregion
         public static class Constants
         {
+            // Application strings.
             public const string sAppName = @"Exclude Dictionary";
             public const string sPlatform = @"Windows 11";
             public const string sCopyright = @"2024{\'96}2026"; // "{\'96}" is an RTF en dash character.
@@ -48,7 +50,19 @@ namespace Edit_Exclude_Dict
             public const string sCopyrightToRepl = @"[@Copyright Date@]";
             public const string sAppIniFileNm = @".ExcludeDict.ini";
             public const string sAuthorEmail = @"christopher@rath.ca";
-
+            // Strings for the .ini file.
+            public const string sIniSectionHead = @"ExcludeDict Settings";
+            public const string sIniComment = @"Comment";
+            public const string sIniCommentTxt = @"Each of the variables in this ExcludeDict.ini file will be normalised.";
+            public const string sIniIsSelectLanguageGroups = @"isSelectLanguageGroups";
+            public const string sIniIsRememberSelection = @"isRememberSelection";
+            public const string sIiSelectedLanguages = @"SelectedLanguages";
+            public static readonly string sHomeFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            public static readonly string sIniFileNm = sHomeFolder + Path.DirectorySeparatorChar + Constants.sAppIniFileNm;
+            // UProof Dictionary strings.
+            public const string sExcludeListFilePrefix = @"ExcludeDictionary";
+            public const string sExcludeListFileSuffix = @".lex";
+            public static readonly string sUProofDictFolder = Path.Combine(sHomeFolder, @"Microsoft\UProof");
         }
     }
 }
