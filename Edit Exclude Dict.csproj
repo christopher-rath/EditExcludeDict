@@ -220,7 +220,7 @@
     <Compile Include="ChooseLanguage.Designer.cs">
       <DependentUpon>ChooseLanguage.cs</DependentUpon>
     </Compile>
-    <Compile Include="#region CopyrightGlobalSuppressions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="License.cs">
       <SubType>Form</SubType>
