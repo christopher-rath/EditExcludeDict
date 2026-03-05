@@ -7,6 +7,7 @@
 //     (see the license text).
 // Warranty: None, see the license.
 #endregion
+using EditExcludeDict.Dialogs;
 using Microsoft.Office.Tools;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,26 @@ namespace Edit_Exclude_Dict
             iniFile.SetString(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniComment, ThisAddIn.Constants.sIniCommentTxt);
             iniFile.SetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsSelectLanguageGroups, cbSelectLanguageGrps.Checked);
             iniFile.SetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsRememberSelection, cbRemeberSelection.Checked);
-            Close(); // TODO: replace this with a call to the next dialog.
+
+            using (EditExcludeList editExcludeList = new EditExcludeList())
+            {
+                switch (editExcludeList.ShowDialog())
+                {
+                    case DialogResult.Cancel:
+                        // TODO: Need to restore original .ini values.
+                        Close();
+                        break;
+                    case DialogResult.Retry:
+                        break;
+                    case DialogResult.OK:
+                        Close();
+                        break;
+                    default:
+                        Debug.Fail("Unexpected dialog result from EditExcludeList form.");
+                        Close();
+                        break;
+                }
+            }
         }
     }
 }

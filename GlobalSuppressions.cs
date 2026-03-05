@@ -10,3 +10,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.About.btnViewLicense_Click(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.ChooseLanguage.btnCancel_Click(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.ChooseLanguage.btnNext_Click(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:EditExcludeDict.Dialogs.EditExcludeList.btnCancel_Click(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:EditExcludeDict.Dialogs.EditExcludeList.btnBack_Click(System.Object,System.EventArgs)")]

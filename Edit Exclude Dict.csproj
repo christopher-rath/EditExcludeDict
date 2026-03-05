@@ -208,37 +208,46 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="About.cs">
+    <Compile Include="Dialogs\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="About.Designer.cs">
+    <Compile Include="Dialogs\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChooseLanguage.cs">
+    <Compile Include="Dialogs\ChooseLanguage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChooseLanguage.Designer.cs">
+    <Compile Include="Dialogs\ChooseLanguage.Designer.cs">
       <DependentUpon>ChooseLanguage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditExcludeList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditExcludeList.Designer.cs">
+      <DependentUpon>EditExcludeList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\License.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\License.Designer.cs">
+      <DependentUpon>License.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IniFile.cs" />
-    <Compile Include="License.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="License.Designer.cs">
-      <DependentUpon>License.cs</DependentUpon>
-    </Compile>
     <Compile Include="MS_LCID.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="About.resx">
+    <EmbeddedResource Include="Dialogs\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChooseLanguage.resx">
+    <EmbeddedResource Include="Dialogs\ChooseLanguage.resx">
       <DependentUpon>ChooseLanguage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="License.resx">
+    <EmbeddedResource Include="Dialogs\EditExcludeList.resx">
+      <DependentUpon>EditExcludeList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\License.resx">
       <DependentUpon>License.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -282,9 +291,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\EditExcludeLists.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dialogs\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
