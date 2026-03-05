@@ -33,7 +33,6 @@ namespace Edit_Exclude_Dict
 
         private void ChooseLanguage_Load(object sender, EventArgs e)
         {
-            Debug.WriteLine("Ini file path: " + ThisAddIn.Constants.sIniFileNm);
             // Populate the list box with language options.
             //lbLanguageLists.Items.Add("English (United States)");
             cbSelectLanguageGrps.Checked = iniFile.GetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsSelectLanguageGroups, true);
