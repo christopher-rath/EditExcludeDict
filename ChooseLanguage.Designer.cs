@@ -80,6 +80,7 @@
             this.btnNext.TabIndex = 4;
             this.btnNext.Text = "&Next";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // cbRemeberSelection
             // 
