@@ -57,12 +57,13 @@ namespace Edit_Exclude_Dict
             public const string sIniIsSelectLanguageGroups = @"isSelectLanguageGroups";
             public const string sIniIsRememberSelection = @"isRememberSelection";
             public const string sIiSelectedLanguages = @"SelectedLanguages";
-            public static readonly string sHomeFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            public static readonly string sIniFileNm = sHomeFolder + Path.DirectorySeparatorChar + Constants.sAppIniFileNm;
+            //public static readonly string sHomeFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            public static readonly string sWordStartupFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\Word\Startup");
+            public static readonly string sIniFileNm = sWordStartupFolder + Path.DirectorySeparatorChar + Constants.sAppIniFileNm;
             // UProof Dictionary strings.
             public const string sExcludeListFilePrefix = @"ExcludeDictionary";
             public const string sExcludeListFileSuffix = @".lex";
-            public static readonly string sUProofDictFolder = Path.Combine(sHomeFolder, @"Microsoft\UProof");
+            public static readonly string sUProofDictFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\UProof");
         }
     }
 }
