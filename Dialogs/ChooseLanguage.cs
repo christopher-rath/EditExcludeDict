@@ -19,12 +19,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Edit_Exclude_Dict.ThisAddIn;
 
 namespace Edit_Exclude_Dict
 {
     public partial class ChooseLanguage : Form
     {
-        private readonly IniFile iniFile = new IniFile(ThisAddIn.Constants.sIniFileNm);
+        private readonly IniFile iniFile = new IniFile(Constants.sIniFileNm);
         private bool SelectLangGrpsSaved = true;
         private bool RememberSelectionSaved = true;
 
@@ -34,9 +35,9 @@ namespace Edit_Exclude_Dict
 
             // Populate the list box with language options.
             //lbLanguageLists.Items.Add("English (United States)");
-            cbSelectLanguageGrps.Checked = iniFile.GetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsSelectLanguageGroups, true);
+            cbSelectLanguageGrps.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups, true);
             SelectLangGrpsSaved = cbSelectLanguageGrps.Checked;
-            cbRemeberSelection.Checked = iniFile.GetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsRememberSelection, true);
+            cbRemeberSelection.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection, true);
             RememberSelectionSaved = cbRemeberSelection.Checked;
         }
 
@@ -47,9 +48,9 @@ namespace Edit_Exclude_Dict
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            iniFile.SetString(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniComment, ThisAddIn.Constants.sIniCommentTxt);
-            iniFile.SetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsSelectLanguageGroups, cbSelectLanguageGrps.Checked);
-            iniFile.SetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsRememberSelection, cbRemeberSelection.Checked);
+            iniFile.SetString(Constants.sIniSectionHead, Constants.sIniComment, Constants.sIniCommentTxt);
+            iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups, cbSelectLanguageGrps.Checked);
+            iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection, cbRemeberSelection.Checked);
 
             using (EditExcludeList editExcludeList = new EditExcludeList())
             {
@@ -57,8 +58,8 @@ namespace Edit_Exclude_Dict
                 {
                     case DialogResult.Cancel:
                         // Restore .ini values that were retrieved when the form opened.
-                        iniFile.SetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsSelectLanguageGroups, SelectLangGrpsSaved);
-                        iniFile.SetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsRememberSelection, RememberSelectionSaved);
+                        iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups, SelectLangGrpsSaved);
+                        iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection, RememberSelectionSaved);
                         Close();
                         break;
                     case DialogResult.Retry:
