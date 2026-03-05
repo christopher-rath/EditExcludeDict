@@ -35,9 +35,11 @@ namespace Edit_Exclude_Dict
 
             // Populate the list box with language options.
             //lbLanguageLists.Items.Add("English (United States)");
-            cbSelectLanguageGrps.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups, true);
+            cbSelectLanguageGrps.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups,
+                    Constants.bIniIsSelectLanguageGroupsDefault);
             SelectLangGrpsSaved = cbSelectLanguageGrps.Checked;
-            cbRemeberSelection.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection, true);
+            cbRemeberSelection.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection,
+                    Constants.bIniIsRememberSelectionDefault);
             RememberSelectionSaved = cbRemeberSelection.Checked;
         }
 

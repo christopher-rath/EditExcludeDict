@@ -65,7 +65,9 @@ namespace Edit_Exclude_Dict
             public const string sIniCommentTxt = @"Each of the variables in this ExcludeDict.ini file will be normalised.";
             public const string sIniIsSelectLanguageGroups = @"isSelectLanguageGroups";
             public const string sIniIsRememberSelection = @"isRememberSelection";
-            public const string sIiSelectedLanguages = @"SelectedLanguages";
+            public const string sIniSelectedLanguages = @"SelectedLanguages";
+            public const bool bIniIsSelectLanguageGroupsDefault = true;
+            public const bool bIniIsRememberSelectionDefault = true;
             //public static readonly string sHomeFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             public static readonly string sWordStartupFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\Word\Startup");
             public static readonly string sIniFileNm = sWordStartupFolder + Path.DirectorySeparatorChar + Constants.sAppIniFileNm;
