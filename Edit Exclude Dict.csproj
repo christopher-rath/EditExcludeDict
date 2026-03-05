@@ -232,6 +232,7 @@
     <Compile Include="Dialogs\License.Designer.cs">
       <DependentUpon>License.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExcludeDictionaries.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="MS_LCID.cs" />
