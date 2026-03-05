@@ -31,11 +31,7 @@ namespace Edit_Exclude_Dict
         public ChooseLanguage()
         {
             InitializeComponent();
-            this.Load += ChooseLanguage_Load;
-        }
 
-        private void ChooseLanguage_Load(object sender, EventArgs e)
-        {
             // Populate the list box with language options.
             //lbLanguageLists.Items.Add("English (United States)");
             cbSelectLanguageGrps.Checked = iniFile.GetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsSelectLanguageGroups, true);
@@ -43,6 +39,7 @@ namespace Edit_Exclude_Dict
             cbRemeberSelection.Checked = iniFile.GetBool(ThisAddIn.Constants.sIniSectionHead, ThisAddIn.Constants.sIniIsRememberSelection, true);
             RememberSelectionSaved = cbRemeberSelection.Checked;
         }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
