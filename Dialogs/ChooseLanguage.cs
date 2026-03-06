@@ -28,19 +28,28 @@ namespace Edit_Exclude_Dict
         private readonly IniFile iniFile = new IniFile(Constants.sIniFileNm);
         private bool SelectLangGrpsSaved = true;
         private bool RememberSelectionSaved = true;
+        private string SelectedLanguages = string.Empty;
+        private string[] SelectedLangsList = new string[0];
 
         public ChooseLanguage()
         {
             InitializeComponent();
 
-            // Populate the list box with language options.
-            //lbLanguageLists.Items.Add("English (United States)");
+            // Load the .ini values.
             cbSelectLanguageGrps.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups,
                     Constants.bIniIsSelectLanguageGroupsDefault);
             SelectLangGrpsSaved = cbSelectLanguageGrps.Checked;
             cbRemeberSelection.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection,
                     Constants.bIniIsRememberSelectionDefault);
             RememberSelectionSaved = cbRemeberSelection.Checked;
+            SelectedLanguages = iniFile.GetString(Constants.sIniSectionHead, Constants.sIniSelectedLanguages, string.Empty);
+            if (SelectedLanguages.Length > 0)
+            {
+                SelectedLangsList = SelectedLanguages.Split(',');
+            }
+
+            // Load the listbox with the Exclude Dictionary language lists that are available to edit.
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
