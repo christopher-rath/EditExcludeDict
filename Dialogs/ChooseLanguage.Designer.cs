@@ -39,22 +39,13 @@ namespace Edit_Exclude_Dict
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChooseLanguage));
-            this.lbLanguageLists = new System.Windows.Forms.ListBox();
             this.lblTitle = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.cbRemeberSelection = new System.Windows.Forms.CheckBox();
             this.cbSelectLanguageGrps = new System.Windows.Forms.CheckBox();
+            this.lvLanguageLists = new System.Windows.Forms.ListView();
             this.SuspendLayout();
-            // 
-            // lbLanguageLists
-            // 
-            this.lbLanguageLists.FormattingEnabled = true;
-            this.lbLanguageLists.ItemHeight = 20;
-            this.lbLanguageLists.Location = new System.Drawing.Point(12, 60);
-            this.lbLanguageLists.Name = "lbLanguageLists";
-            this.lbLanguageLists.Size = new System.Drawing.Size(776, 304);
-            this.lbLanguageLists.TabIndex = 0;
             // 
             // lblTitle
             // 
@@ -65,7 +56,7 @@ namespace Edit_Exclude_Dict
             this.lblTitle.Multiline = true;
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.ReadOnly = true;
-            this.lblTitle.Size = new System.Drawing.Size(762, 43);
+            this.lblTitle.Size = new System.Drawing.Size(500, 43);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "The following languages have an Exclude Dictionary on your computer.  Select the " +
     "lists to be edited during this session.";
@@ -73,7 +64,7 @@ namespace Edit_Exclude_Dict
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(600, 390);
+            this.btnCancel.Location = new System.Drawing.Point(328, 424);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 32);
             this.btnCancel.TabIndex = 3;
@@ -83,7 +74,7 @@ namespace Edit_Exclude_Dict
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(699, 390);
+            this.btnNext.Location = new System.Drawing.Point(423, 424);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 32);
             this.btnNext.TabIndex = 4;
@@ -94,7 +85,7 @@ namespace Edit_Exclude_Dict
             // cbRemeberSelection
             // 
             this.cbRemeberSelection.AutoSize = true;
-            this.cbRemeberSelection.Location = new System.Drawing.Point(24, 407);
+            this.cbRemeberSelection.Location = new System.Drawing.Point(24, 441);
             this.cbRemeberSelection.Name = "cbRemeberSelection";
             this.cbRemeberSelection.Size = new System.Drawing.Size(260, 24);
             this.cbRemeberSelection.TabIndex = 5;
@@ -104,25 +95,40 @@ namespace Edit_Exclude_Dict
             // cbSelectLanguageGrps
             // 
             this.cbSelectLanguageGrps.AutoSize = true;
-            this.cbSelectLanguageGrps.Location = new System.Drawing.Point(24, 376);
+            this.cbSelectLanguageGrps.Location = new System.Drawing.Point(24, 410);
             this.cbSelectLanguageGrps.Name = "cbSelectLanguageGrps";
             this.cbSelectLanguageGrps.Size = new System.Drawing.Size(239, 24);
             this.cbSelectLanguageGrps.TabIndex = 6;
             this.cbSelectLanguageGrps.Text = "Select Groups of Languages";
             this.cbSelectLanguageGrps.UseVisualStyleBackColor = true;
             // 
+            // lvLanguageLists
+            // 
+            this.lvLanguageLists.CheckBoxes = true;
+            this.lvLanguageLists.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvLanguageLists.HideSelection = false;
+            this.lvLanguageLists.LabelWrap = false;
+            this.lvLanguageLists.Location = new System.Drawing.Point(12, 58);
+            this.lvLanguageLists.Name = "lvLanguageLists";
+            this.lvLanguageLists.ShowGroups = false;
+            this.lvLanguageLists.Size = new System.Drawing.Size(490, 343);
+            this.lvLanguageLists.TabIndex = 7;
+            this.lvLanguageLists.UseCompatibleStateImageBehavior = false;
+            this.lvLanguageLists.View = System.Windows.Forms.View.Details;
+            this.lvLanguageLists.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvLanguageLists_ItemChecked);
+            // 
             // ChooseLanguage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(800, 440);
+            this.ClientSize = new System.Drawing.Size(514, 474);
+            this.Controls.Add(this.lvLanguageLists);
             this.Controls.Add(this.cbSelectLanguageGrps);
             this.Controls.Add(this.cbRemeberSelection);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.lbLanguageLists);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChooseLanguage";
             this.Text = "Choose Language";
@@ -130,13 +136,13 @@ namespace Edit_Exclude_Dict
             this.PerformLayout();
 
         }
-
-        private System.Windows.Forms.ListBox lbLanguageLists;
         private System.Windows.Forms.TextBox lblTitle;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.CheckBox cbRemeberSelection;
         private System.Windows.Forms.CheckBox cbSelectLanguageGrps;
         #endregion
+
+        private System.Windows.Forms.ListView lvLanguageLists;
     }
 }

@@ -19,6 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using static Edit_Exclude_Dict.ThisAddIn;
 
 namespace Edit_Exclude_Dict
@@ -26,6 +27,8 @@ namespace Edit_Exclude_Dict
     public partial class ChooseLanguage : Form
     {
         private readonly IniFile iniFile = new IniFile(Constants.sIniFileNm);
+        // Guard flag to ignore ListView events while the form is initializing/loading data.
+        private bool isInitializing = true;
         private bool SelectLangGrpsSaved = true;
         private bool RememberSelectionSaved = true;
         private string SelectedLanguages = string.Empty;
@@ -33,7 +36,15 @@ namespace Edit_Exclude_Dict
 
         public ChooseLanguage()
         {
+            ExcludeDictionaries excludeDictionaries = new ExcludeDictionaries();
+            List<string> availableDicts = new List<string>();
+            string[,] tmpArray;
+
+            // Prevent ItemChecked handler from responding while we populate the ListView.
+            isInitializing = true;
+
             InitializeComponent();
+            this.Shown += new System.EventHandler(this.lvLanguageLists_Shown);
 
             // Load the .ini values.
             cbSelectLanguageGrps.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups,
@@ -49,7 +60,24 @@ namespace Edit_Exclude_Dict
             }
 
             // Load the listbox with the Exclude Dictionary language lists that are available to edit.
-
+            availableDicts = excludeDictionaries.GetAvailableDictFiles();
+            tmpArray = new string[availableDicts.Count, 3];
+            for (int i = 0; i < availableDicts.Count; i++)
+            {
+                tmpArray[i, 0] = excludeDictionaries.GetLCIDPrefix(availableDicts[i]);
+                tmpArray[i, 1] = excludeDictionaries.GetLCID(availableDicts[i]);
+                tmpArray[i, 2] = availableDicts[i];
+            }
+            // Add the three columns from the tmpArray to the lvLanguageLists ListView's three columns.
+           lvLanguageLists.Columns.Add("Lang", -2);
+            lvLanguageLists.Columns.Add("LCID", -2);
+            lvLanguageLists.Columns.Add("Filename", -2);
+            for (int i = 0; i < tmpArray.GetUpperBound(0); i++)
+            {
+                string[] row = { tmpArray[i, 0], tmpArray[i, 1], tmpArray[i, 2] };
+                ListViewItem item = new ListViewItem(row);
+                lvLanguageLists.Items.Add(item);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -87,6 +115,26 @@ namespace Edit_Exclude_Dict
                         Close();
                         break;
                 }
+            }
+        }
+
+        private void lvLanguageLists_Shown(object sender, EventArgs e)
+        {
+            // Finished populating - enable the ItemChecked handler.
+            isInitializing = false;
+        }
+
+
+        private void lvLanguageLists_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (!isInitializing)
+            {
+                // ItemChecked fires when the checkbox state changes. Use this to react to
+                // user checking/unchecking language lists.
+                string filename = e.Item.SubItems[2].Text; // Assuming the filename is in the third column.
+                bool isChecked = e.Item.Checked;
+                // Placeholder: show a small info message. Replace with real logic as needed.
+                MessageBox.Show($"{filename} checked = {isChecked}", "Item Checked", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

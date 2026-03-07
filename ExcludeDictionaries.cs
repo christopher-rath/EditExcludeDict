@@ -7,6 +7,7 @@
 //     (see the license text).
 // Warranty: None, see the license.
 #endregion
+using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static Edit_Exclude_Dict.ThisAddIn;
 
 namespace Edit_Exclude_Dict
@@ -27,24 +29,74 @@ namespace Edit_Exclude_Dict
     /// </summary>
     internal class ExcludeDictionaries
     {
-        private List<string> dictFiles = new List<string>();
+        private List<string> dictFiles = new List<string>(); // List of the Exclude Dictionary .lex filenames that are available to edit.
+        private Dictionary<string, string> selectedDictFiles = new Dictionary<string, string>();
+
         public ExcludeDictionaries()
         {
-            foreach (string f in Directory.GetFiles(Constants.sUProofDictFolder))
+            // Check that the UProof folder exists and throw an error if it doesn't.
+            if (!Directory.Exists(Constants.sUProofDictFolder))
             {
-                // TODO: Load previously selected languages from the .ini file.
-
-                // Check that the UProof folder exists and throw an error if it doesn't.
-                if (!Directory.Exists(Constants.sUProofDictFolder))
+                throw new DirectoryNotFoundException($"The UProof dictionary folder was not found at the expected location: {Constants.sUProofDictFolder}");
+            }
+            else
+            {
+                foreach (string f in Directory.GetFiles(Constants.sUProofDictFolder))
                 {
-                    throw new DirectoryNotFoundException($"The UProof dictionary folder was not found at the expected location: {Constants.sUProofDictFolder}");
+                    if (Path.GetFileName(f).StartsWith(Constants.sExcludeListFilePrefix) && Path.GetFileName(f).EndsWith(Constants.sExcludeListFileSuffix))
+                    {
+                        // Only save the filename because the full path is a known constant.
+                        dictFiles.Add(Path.GetFileName(f));
+                    }
                 }
-                else if (Path.GetFileName(f).StartsWith(Constants.sExcludeListFilePrefix) && Path.GetFileName(f).EndsWith(Constants.sExcludeListFileSuffix))
-                {
-                    dictFiles.Add(f);
-                }
+                dictFiles.Sort();
+            }
+        }
 
-                
+        public List<string> GetAvailableDictFiles()
+        {
+            return dictFiles;
+        }
+
+        /// <summary>
+        /// Add a dictionary file to the list of selected dictionary files to edit; but only
+        /// if it is in the list of available dictionary files.
+        /// </summary>
+        /// <param name="filename">The filename to add to the list of selected dictionaries.</param>
+        /// <returns>True if the dictionary was added.  False if it was not added.</returns>
+        public bool SelectDict(string filename)
+        {
+            if (dictFiles.Contains(filename))
+            {
+                selectedDictFiles[GetExtendedLCID(filename)] = filename;
+                return true;
+            }
+            else
+            {
+                return false; 
+            }
+        }
+
+        /// <summary>
+        /// Removes the specified dictionary file from the collection of selected dictionary files if it is currently
+        /// selected.
+        /// </summary>
+        /// <remarks>Use this method to unselect a dictionary file that was previously selected. If the
+        /// specified file is not currently selected, the method performs no action and returns false.
+        /// </remarks>
+        /// <param name="filename">The name of the dictionary file to remove from the selection. The value is case-insensitive and should match
+        /// the filename used when selecting the dictionary.</param>
+        /// <returns>true if the dictionary file was successfully removed from the selection; otherwise, false.</returns>
+        public bool UnselectDict(string filename)
+        {
+            if (selectedDictFiles.ContainsKey(GetExtendedLCID(filename)))
+            {
+                selectedDictFiles.Remove(GetExtendedLCID(filename));
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -54,7 +106,7 @@ namespace Edit_Exclude_Dict
         /// </summary>
         /// <param name="filePath">The full pathname of the .lex file from which the extended LCID is to be extracted.</param>
         /// <returns></returns>
-        private string GetExtendedLCID(string filePath)
+        public string GetExtendedLCID(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -63,11 +115,13 @@ namespace Edit_Exclude_Dict
             else if (Path.GetFileName(filePath).StartsWith(Constants.sExcludeListFilePrefix)
                     && Path.GetFileName(filePath).EndsWith(Constants.sExcludeListFileSuffix))
             {
-                string theLCID = string.Empty;
-                theLCID = Path.GetFileName(filePath);
-                theLCID.Replace(Constants.sExcludeListFilePrefix, string.Empty);
-                theLCID.Replace(Constants.sExcludeListFileSuffix, string.Empty);
-                return theLCID;
+                string theExLCID = string.Empty;
+
+                theExLCID = Path.GetFileName(filePath);
+                theExLCID = theExLCID.Replace(Constants.sExcludeListFilePrefix, string.Empty);
+                theExLCID = theExLCID.Replace(Constants.sExcludeListFileSuffix, string.Empty);
+
+                return theExLCID;
             }
             else
             {
@@ -81,7 +135,7 @@ namespace Edit_Exclude_Dict
         /// </summary>
         /// <param name="filePath">The full pathname of the .lex file from which the LCID is to be extracted.</param>
         /// <returns>Four digit LCID.</returns>
-        private string GetLCID(string filePath)
+        public string GetLCID(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -91,9 +145,12 @@ namespace Edit_Exclude_Dict
                     && Path.GetFileName(filePath).EndsWith(Constants.sExcludeListFileSuffix))
             {
                 string theLCID = string.Empty;
+
                 theLCID = Path.GetFileName(filePath);
-                theLCID.Replace(Constants.sExcludeListFileSuffix, string.Empty);
-                theLCID.Substring(2, 4);
+                theLCID = theLCID.Replace(Constants.sExcludeListFilePrefix, string.Empty);
+                theLCID = theLCID.Replace(Constants.sExcludeListFileSuffix, string.Empty);
+                theLCID = theLCID.Substring(2, 4);
+
                 return theLCID;
             }
             else
@@ -107,7 +164,7 @@ namespace Edit_Exclude_Dict
         /// For example: "ExcludeDictionaryGE0407.lex" returns "GE"
         /// <param name="filePath">The full pathname of the .lex file from which the LCID prefix is to be extracted.</param>
         /// <returns>The two character LCID prefix.</returns>
-        private string GetLCIDPrefix(string filePath)
+        public string GetLCIDPrefix(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -119,8 +176,8 @@ namespace Edit_Exclude_Dict
                 string thePrefix = string.Empty;
 
                 thePrefix = Path.GetFileName(filePath);
-                thePrefix.Replace(Constants.sExcludeListFilePrefix, string.Empty);
-                thePrefix.Substring(0, 2);
+                thePrefix = thePrefix.Replace(Constants.sExcludeListFilePrefix, string.Empty);
+                thePrefix = thePrefix.Substring(0, 2);
 
                 return thePrefix;
             }
