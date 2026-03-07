@@ -29,10 +29,13 @@ namespace Edit_Exclude_Dict
         private readonly IniFile iniFile = new IniFile(Constants.sIniFileNm);
         // Guard flag to ignore ListView events while the form is initializing/loading data.
         private bool isInitializing = true;
+#pragma warning disable IDE0044 // Add readonly modifier is not valid because these variables
+                                // are not only changed in the constructor.
         private bool SelectLangGrpsSaved = true;
         private bool RememberSelectionSaved = true;
         private string SelectedLanguages = string.Empty;
-        private string[] SelectedLangsList = new string[0];
+        private string[] SelectedLangsList;
+#pragma warning restore IDE0044 // Add readonly modifier
 
         public ChooseLanguage()
         {
@@ -80,11 +83,32 @@ namespace Edit_Exclude_Dict
             }
         }
 
+        /// <summary>
+        /// Called when the user has decided to abandon editing the Exclude Dictionary lists and
+        /// wants to close the form without saving any changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// When the user has selected the "languages" (that is, the Exclude Dictionaries) to
+        /// edit, then the [Next] button is clicked to open the EditExcludeList form.  This
+        /// method alters its behaviour based upon the return value from the EditExcludeList
+        /// form:
+        ///  * if the user clicked [Cancel] on the EditExcludeList form, then we cancel out
+        ///    of the entire process just as if [Cancel] was pressed on this form;
+        ///  * if the user clicked [Retry] on the EditExcludeList form, then we do nothing and
+        ///    allow the user to re-choose languages;
+        ///  * and, if the user clicked [OK] on the EditExcludeList form, then we just close
+        ///    this form and end the process, since the EditExcludeList form will have already
+        ///    saved the changes to the Exclude Dictionary lists.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNext_Click(object sender, EventArgs e)
         {
             iniFile.SetString(Constants.sIniSectionHead, Constants.sIniComment, Constants.sIniCommentTxt);
@@ -118,13 +142,30 @@ namespace Edit_Exclude_Dict
             }
         }
 
+        /// <summary>
+        /// Once this form has finished loading all its data, we set the isInitializing flag to false
+        /// to enable the ItemChecked handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lvLanguageLists_Shown(object sender, EventArgs e)
         {
             // Finished populating - enable the ItemChecked handler.
             isInitializing = false;
         }
 
-
+        /// <summary>
+        /// Each time the user checks or unchecks a langage on the form, this event handler is
+        /// called.  We use the isInitializing flag to ignore these events while the form is
+        /// loading, but once the form is loaded, we can react to the user checking/unchecking
+        /// languages.
+        ///
+        /// When a language is checked, if SelectLanguageGroups is set then we check all the
+        /// other entres for that langauge group (and the inverse when a language is unchecked).
+        /// If SelectLanguageGroups is not set, then no other action is needed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lvLanguageLists_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             if (!isInitializing)
