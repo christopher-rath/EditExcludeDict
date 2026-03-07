@@ -30,7 +30,7 @@ namespace Edit_Exclude_Dict
         // Guard flag to ignore ListView events while the form is initializing/loading data.
         private bool isInitializing = true;
 #pragma warning disable IDE0044 // Add readonly modifier is not valid because these variables
-                                // are not only changed in the constructor.
+        // are not only changed in the constructor.
         private bool SelectLangGrpsSaved = true;
         private bool RememberSelectionSaved = true;
         private string SelectedLanguages = string.Empty;
@@ -72,14 +72,19 @@ namespace Edit_Exclude_Dict
                 tmpArray[i, 2] = availableDicts[i];
             }
             // Add the three columns from the tmpArray to the lvLanguageLists ListView's three columns.
-           lvLanguageLists.Columns.Add("Lang", -2);
+            lvLanguageLists.Columns.Add("Lang", -2);
             lvLanguageLists.Columns.Add("LCID", -2);
             lvLanguageLists.Columns.Add("Filename", -2);
-            for (int i = 0; i < tmpArray.GetUpperBound(0); i++)
+            for (int i = 0; i <= tmpArray.GetUpperBound(0); i++)
             {
                 string[] row = { tmpArray[i, 0], tmpArray[i, 1], tmpArray[i, 2] };
                 ListViewItem item = new ListViewItem(row);
                 lvLanguageLists.Items.Add(item);
+                // If this language is one that was previously selected, then set it to checked.
+                if (isLanguageIniSelected(tmpArray[i, 0] + tmpArray[i, 1]))
+                {
+                    item.Checked = true;
+                }
             }
         }
 
@@ -174,9 +179,43 @@ namespace Edit_Exclude_Dict
                 // user checking/unchecking language lists.
                 string filename = e.Item.SubItems[2].Text; // Assuming the filename is in the third column.
                 bool isChecked = e.Item.Checked;
-                // Placeholder: show a small info message. Replace with real logic as needed.
-                MessageBox.Show($"{filename} checked = {isChecked}", "Item Checked", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // If the "Select Language Groups" option is checked, then we need to check/uncheck all
+                // other entries for the same language group.
+                if (cbSelectLanguageGrps.Checked)
+                {
+                    string lcidPrefix = e.Item.SubItems[0].Text; // The LCID prefix is in the first column.
+                    foreach (ListViewItem item in lvLanguageLists.Items)
+                    {
+                        if (item.SubItems[0].Text == lcidPrefix)
+                        {
+                            item.Checked = isChecked;
+                        }
+                    }
+                }
             }
+        }
+
+        /// <summary>
+        /// Call this method to determine if the specified LCID is one that was previously
+        /// selected (that is, it's in the list that was loaded from the .ini file.
+        /// </summary>
+        /// <param name="anLCID">An LCID string (for example, "EN0409").</param>
+        /// <returns></returns>
+        private bool isLanguageIniSelected(string anLCID)
+        {
+            bool rtnVal = false;
+
+            for (int i = 0; i <= SelectedLangsList.GetUpperBound(0); i++)
+            {
+                if (SelectedLangsList[i] == anLCID)
+                {
+                    rtnVal = true;
+                    break;
+                }
+            }
+
+            return rtnVal;
         }
     }
 }

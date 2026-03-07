@@ -17,3 +17,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.ExcludeDictionaries.GetLCIDPrefix(System.String)~System.String")]
 [assembly: SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.ExcludeDictionaries.GetLCID(System.String)~System.String")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.ChooseLanguage.lvLanguageLists_Shown(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.ChooseLanguage.isLanguageSelected(System.String)~System.Boolean")]
