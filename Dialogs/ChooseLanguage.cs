@@ -29,10 +29,11 @@ namespace Edit_Exclude_Dict
         private readonly IniFile iniFile = new IniFile(Constants.sIniFileNm);
         // Guard flag to ignore ListView events while the form is initializing/loading data.
         private bool isInitializing = true;
+        private readonly bool SelectLangGrpsSaved = true;
+        private readonly bool RememberSelectionSaved = true;
+        private readonly string SelectedLanguagesSaved = string.Empty;
 #pragma warning disable IDE0044 // Add readonly modifier is not valid because these variables
         // are not only changed in the constructor.
-        private bool SelectLangGrpsSaved = true;
-        private bool RememberSelectionSaved = true;
         private string SelectedLanguages = string.Empty;
         private string[] SelectedLangsList;
 #pragma warning restore IDE0044 // Add readonly modifier
@@ -57,6 +58,7 @@ namespace Edit_Exclude_Dict
                     Constants.bIniIsRememberSelectionDefault);
             RememberSelectionSaved = cbRemeberSelection.Checked;
             SelectedLanguages = iniFile.GetString(Constants.sIniSectionHead, Constants.sIniSelectedLanguages, string.Empty);
+            SelectedLanguagesSaved = SelectedLanguages;
             if (SelectedLanguages.Length > 0)
             {
                 SelectedLangsList = SelectedLanguages.Split(',');
@@ -119,6 +121,27 @@ namespace Edit_Exclude_Dict
             iniFile.SetString(Constants.sIniSectionHead, Constants.sIniComment, Constants.sIniCommentTxt);
             iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups, cbSelectLanguageGrps.Checked);
             iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection, cbRemeberSelection.Checked);
+            if (cbRemeberSelection.Checked)
+            {
+                // Build a comma-separated list of the selected languages to save to the .ini file.
+                SelectedLanguages = string.Empty;
+                foreach (ListViewItem item in lvLanguageLists.Items)
+                {
+                    if (item.Checked)
+                    {
+                        if (SelectedLanguages.Length > 0)
+                        {
+                            SelectedLanguages += ",";
+                        }
+                        SelectedLanguages += item.SubItems[0].Text + item.SubItems[1].Text; // LCID prefix + LCID
+                    }
+                }
+            }
+            else
+            {
+                SelectedLanguages = string.Empty;
+            }
+            iniFile.SetString(Constants.sIniSectionHead, Constants.sIniSelectedLanguages, SelectedLanguages);
 
             using (EditExcludeList editExcludeList = new EditExcludeList())
             {
@@ -128,6 +151,7 @@ namespace Edit_Exclude_Dict
                         // Restore .ini values that were retrieved when the form opened.
                         iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups, SelectLangGrpsSaved);
                         iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection, RememberSelectionSaved);
+                        iniFile.SetString(Constants.sIniSectionHead, Constants.sIniSelectedLanguages, SelectedLanguagesSaved);
                         Close();
                         break;
                     case DialogResult.Retry:
