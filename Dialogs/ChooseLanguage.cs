@@ -27,7 +27,7 @@ namespace Edit_Exclude_Dict
 #pragma warning disable IDE0044 // Add readonly modifier is not valid because these variables
         // are not only changed in the constructor.
         private string SelectedLanguages = string.Empty;
-        private string[] SelectedLangsList;
+        private string[] SelectedLangsList = new string[0];
 #pragma warning restore IDE0044 // Add readonly modifier
 
         public ChooseLanguage()
@@ -53,6 +53,10 @@ namespace Edit_Exclude_Dict
             if (SelectedLanguages.Length > 0)
             {
                 SelectedLangsList = SelectedLanguages.Split(',');
+            }
+            else
+            {
+                SelectedLangsList = new string[0];
             }
 
             // Load the listbox with the Exclude Dictionary language lists that are available to edit.
