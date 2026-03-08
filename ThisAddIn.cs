@@ -1,5 +1,5 @@
 ﻿#region Copyright
-// Edit Exlude Dict -- A Microsoft Word add-in to edit the UProof Exclude Dictionary word lists.
+// Edit Exclude Dict -- A Microsoft Word add-in to edit the UProof Exclude Dictionary word lists.
 // Author: Christopher Rath <christopher@rath.ca>
 // Archived at: https://github.com/christopher-rath/EditExcludeDict
 // Copyright 2024-2026 © Christopher Rath
@@ -7,15 +7,8 @@
 //     (see the license text).
 // Warranty: None, see the license.
 #endregion
-using Microsoft.Office.Tools.Word;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using Office = Microsoft.Office.Core;
-using Word = Microsoft.Office.Interop.Word;
 
 namespace Edit_Exclude_Dict
 {
