@@ -46,6 +46,7 @@ namespace EditExcludeDict.Dialogs
             // 
             // tbWordList
             // 
+            this.tbWordList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbWordList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbWordList.Location = new System.Drawing.Point(12, 12);
             this.tbWordList.Multiline = true;
@@ -106,6 +107,7 @@ namespace EditExcludeDict.Dialogs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(492, 664);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);

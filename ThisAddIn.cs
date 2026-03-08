@@ -47,11 +47,12 @@ namespace Edit_Exclude_Dict
         }
 
         #endregion
+
         public static class Constants
         {
             // Application strings.
             public const string sAppName = @"Exclude Dictionary";
-            public const string sPlatform = @"Windows 11";
+            public const string sPlatform = @"O365 Word and Windows 11";
             public const string sCopyright = @"2024{\'96}2026"; // "{\'96}" is an RTF en dash character.
             public const string sVersion = @"2.0"; // --> Also update in "AssemblyInfo.cs" <--
             public const string sVersionToRepl = @"[@Version String@]";

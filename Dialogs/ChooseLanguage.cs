@@ -40,7 +40,6 @@ namespace Edit_Exclude_Dict
 
         public ChooseLanguage()
         {
-            ExcludeDictionaries excludeDictionaries = new ExcludeDictionaries();
             List<string> availableDicts = new List<string>();
             string[,] tmpArray;
 
@@ -65,12 +64,12 @@ namespace Edit_Exclude_Dict
             }
 
             // Load the listbox with the Exclude Dictionary language lists that are available to edit.
-            availableDicts = excludeDictionaries.GetAvailableDictFiles();
+            availableDicts = ExcludeDictionaries.Instance.GetAvailableDictFiles();
             tmpArray = new string[availableDicts.Count, 3];
             for (int i = 0; i < availableDicts.Count; i++)
             {
-                tmpArray[i, 0] = excludeDictionaries.GetLCIDPrefix(availableDicts[i]);
-                tmpArray[i, 1] = excludeDictionaries.GetLCID(availableDicts[i]);
+                tmpArray[i, 0] = ExcludeDictionaries.Instance.GetLCIDPrefix(availableDicts[i]);
+                tmpArray[i, 1] = ExcludeDictionaries.Instance.GetLCID(availableDicts[i]);
                 tmpArray[i, 2] = availableDicts[i];
             }
             // Add the three columns from the tmpArray to the lvLanguageLists ListView's three columns.
@@ -124,7 +123,10 @@ namespace Edit_Exclude_Dict
             if (cbRemeberSelection.Checked)
             {
                 // Build a comma-separated list of the selected languages to save to the .ini file.
+                // As we build the list, also select/unselect the languages in the excludeDictionaries
+                // object.
                 SelectedLanguages = string.Empty;
+                ExcludeDictionaries.Instance.ClearSelectedLanguages();
                 foreach (ListViewItem item in lvLanguageLists.Items)
                 {
                     if (item.Checked)
@@ -134,11 +136,14 @@ namespace Edit_Exclude_Dict
                             SelectedLanguages += ",";
                         }
                         SelectedLanguages += item.SubItems[0].Text + item.SubItems[1].Text; // LCID prefix + LCID
+                        ExcludeDictionaries.Instance.SelectDict(item.SubItems[2].Text); // Filename
                     }
                 }
             }
             else
             {
+                // This is the list of selected languages for the .ini file.  It has nothing to do
+                // with how the selected langauges are handled on the next EditExcludeList form.
                 SelectedLanguages = string.Empty;
             }
             iniFile.SetString(Constants.sIniSectionHead, Constants.sIniSelectedLanguages, SelectedLanguages);
@@ -201,7 +206,7 @@ namespace Edit_Exclude_Dict
             {
                 // ItemChecked fires when the checkbox state changes. Use this to react to
                 // user checking/unchecking language lists.
-                string filename = e.Item.SubItems[2].Text; // Assuming the filename is in the third column.
+                //string filename = e.Item.SubItems[2].Text; // Assuming the filename is in the third column.
                 bool isChecked = e.Item.Checked;
 
                 // If the "Select Language Groups" option is checked, then we need to check/uncheck all

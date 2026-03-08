@@ -24,23 +24,41 @@ namespace EditExcludeDict.Dialogs
     {
         public EditExcludeList()
         {
+            List<string> wordListToEdit;
+
             InitializeComponent();
+
+            // Retrieve the list of words to edit from the ExcludeDictionaries class.
+            // Then copy that list into the tbWordList textbox for the user to edit.
+            wordListToEdit = ExcludeDictionaries.Instance.GetConsolidatedWordList();
+            tbWordList.Text = string.Join(Environment.NewLine, wordListToEdit);
+            tbWordList.Select(0, 0); // Move the cursor to the start of the textbox.
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Retry;
+            DialogResult = DialogResult.Retry;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // TODO: need to save the edited list back to the Exclude Dictionary files.
-            this.DialogResult = DialogResult.OK;
+            List<string> wordListToSave = new List<string>();
+
+            // Get the edited list of words from the tbWordList textbox, split it into a
+            // list, and save it back to the ExcludeDictionaries class.
+            foreach (string word in tbWordList.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                wordListToSave.Add(word.Trim());
+            }
+
+            ExcludeDictionaries.Instance.PutConsolidatedWordList(wordListToSave);
+
+            DialogResult = DialogResult.OK;
         }
     }
 }
