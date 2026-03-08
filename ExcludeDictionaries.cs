@@ -27,12 +27,22 @@ namespace Edit_Exclude_Dict
     /// (via a get method) and accept the updated word list to save back to the .lex files (via
     /// a put method).
     /// </summary>
-    internal class ExcludeDictionaries
+    public sealed class ExcludeDictionaries
     {
         private List<string> dictFiles = new List<string>(); // List of the Exclude Dictionary .lex filenames that are available to edit.
-        private Dictionary<string, string> selectedDictFiles = new Dictionary<string, string>();
+        private List<string> selectedDictFiles = new List<string>();
 
-        public ExcludeDictionaries()
+#pragma warning disable CA2211
+        // The single instance of ExludeDictionaries.
+        public static ExcludeDictionaries Instance = new ExcludeDictionaries();
+#pragma warning restore CA2211
+
+        /// <summary>
+        /// This ExcludeDictionaries class uses private constructor to implement the
+        /// Singleton design pattern.  The single instance of this class is referenced
+        /// via ExcludeDictionaries.Instance.
+        /// </summary>
+        private ExcludeDictionaries()
         {
             // Check that the UProof folder exists and throw an error if it doesn't.
             if (!Directory.Exists(Constants.sUProofDictFolder))
@@ -59,6 +69,14 @@ namespace Edit_Exclude_Dict
         }
 
         /// <summary>
+        /// Clear the list of selected dictionary files.
+        /// </summary>
+        public void ClearSelectedLanguages()
+        {
+            selectedDictFiles.Clear();
+        }
+
+        /// <summary>
         /// Add a dictionary file to the list of selected dictionary files to edit; but only
         /// if it is in the list of available dictionary files.
         /// </summary>
@@ -68,7 +86,7 @@ namespace Edit_Exclude_Dict
         {
             if (dictFiles.Contains(filename))
             {
-                selectedDictFiles[GetExtendedLCID(filename)] = filename;
+                selectedDictFiles.Add(filename);
                 return true;
             }
             else
@@ -89,9 +107,9 @@ namespace Edit_Exclude_Dict
         /// <returns>true if the dictionary file was successfully removed from the selection; otherwise, false.</returns>
         public bool UnselectDict(string filename)
         {
-            if (selectedDictFiles.ContainsKey(GetExtendedLCID(filename)))
+            if (selectedDictFiles.Contains(filename))
             {
-                selectedDictFiles.Remove(GetExtendedLCID(filename));
+                selectedDictFiles.Remove(filename);
                 return true;
             }
             else
@@ -184,6 +202,77 @@ namespace Edit_Exclude_Dict
             else
             {
                 return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Concatenate contents of all of the selected Exclude Dictionary .lex files into
+        /// a single consolidated list of words.  Remove duplicates and sort the list before
+        /// returning it.
+        /// </summary>
+        /// <returns>A List<> of the consolidated, deduped, and sorted words from all of the selected Exclude Dictionaries.</returns>
+        public List<string> GetConsolidatedWordList()
+        {
+            List<string> consolidatedWordList = new List<string>();
+            foreach (string f in selectedDictFiles)
+            {
+                string fullPath = Path.Combine(Constants.sUProofDictFolder, f);
+                if (File.Exists(fullPath))
+                {
+                    try
+                    {
+                        string[] words = File.ReadAllLines(fullPath);
+                        consolidatedWordList.AddRange(words);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error reading file {fullPath}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"File not found: {fullPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            // Remove duplicates and sort the list.
+            consolidatedWordList = consolidatedWordList.Distinct().ToList();
+            consolidatedWordList.Sort();
+            consolidatedWordList.RemoveAll(x => string.IsNullOrEmpty(x));
+            return consolidatedWordList;
+        }
+
+        /// <summary>
+        /// Take the specified list of words and save it back to the selected Exclude
+        /// Dictionary .lex files.
+        /// </summary>
+        /// <param name="WordListToSave"></param>
+        public void PutConsolidatedWordList(List<string> WordListToSave)
+        {
+            // Sort the list before writing it out.
+            WordListToSave.Sort();
+
+            foreach (string f in selectedDictFiles)
+            {
+                string fullPath = Path.Combine(Constants.sUProofDictFolder, f);
+                if (File.Exists(fullPath))
+                {
+                    try
+                    {
+                        File.WriteAllLines(fullPath, WordListToSave);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error writing to file {fullPath}: {ex.Message}\n\nThis is"
+                                    + " not a recoverable error, work in progress will be abandoned!", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"File not found: {fullPath}\n\nThis is not a recoverable error,"
+                                    + " work in progress will be abandoned!", "Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
             }
         }
     }
