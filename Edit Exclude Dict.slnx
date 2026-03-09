@@ -2,5 +2,8 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
   </Folder>
-  <Project Path="Edit Exclude Dict.csproj" Id="e0b5eff5-3cac-41bd-b511-8300fb84ca2b" />
+  <Project Path="Edit Exclude Dict.csproj" Id="e0b5eff5-3cac-41bd-b511-8300fb84ca2b">
+    <BuildType Project="Release" />
+  </Project>
+  <Project Path="ExcludeDictInstaller/ExcludeDictInstaller.vdproj" Type="Installer" />
 </Solution>
