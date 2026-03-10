@@ -290,6 +290,7 @@
     <EmbeddedResource Include="Ribbon1.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InstallerNotes.txt" />
     <Content Include="Properties\GNU_LGPL.txt" />
   </ItemGroup>
   <ItemGroup>
