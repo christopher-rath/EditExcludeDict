@@ -9,3 +9,5 @@ Open a Windows CMD window, cd into this directory, and then run the
 This will create "ExcludeDictSetup.exe".  That .exe file may then be
 used to install the MS Word ExcludeDictionary Addin.
 
+Note: this .cmd script uses the "LZMA SDK".  See:
+      https://www.7-zip.org/sdk.html
