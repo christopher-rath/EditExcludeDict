@@ -23,6 +23,7 @@ namespace Edit_Exclude_Dict
             var aboutStrFlPath = @"Edit_Exclude_Dict.Resources.About_EditExcludeDict.rtf";
 
             InitializeComponent();
+            this.rtbAbout.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtbAbout_LinkClicked);
 
             try
             {
@@ -50,11 +51,7 @@ namespace Edit_Exclude_Dict
             rtbAbout.Rtf = aboutStr;
         }
 
-        private void rtbAbout_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void btnOK_Click(object sender, EventArgs e)
         {
             Close();
@@ -65,6 +62,12 @@ namespace Edit_Exclude_Dict
             License licenseForm = new License();
             licenseForm.ShowDialog();
             btnOK.Select();
+        }
+
+        private void rtbAbout_LinkClicked(object sender, System.Windows.Forms.LinkClickedEventArgs e)
+        {
+            // Use Process.Start to open the URL in the default browser
+            System.Diagnostics.Process.Start(e.LinkText);
         }
     }
 }

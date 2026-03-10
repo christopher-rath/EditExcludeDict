@@ -52,7 +52,6 @@ namespace Edit_Exclude_Dict
             this.rtbAbout.Size = new System.Drawing.Size(776, 389);
             this.rtbAbout.TabIndex = 2;
             this.rtbAbout.Text = "";
-            this.rtbAbout.TextChanged += new System.EventHandler(this.rtbAbout_TextChanged);
             // 
             // btnOK
             // 
