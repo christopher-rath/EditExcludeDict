@@ -1,0 +1,5 @@
+;!@Install@!UTF-8!
+Title="Exclude Dictionary Word Addin"
+BeginPrompt="Do you want to install the MS Word Exclude Dictionary Addin?"
+RunProgram="setup.exe"
+;!@InstallEnd@!
