@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="README.md" />
   </Folder>
   <Project Path="Edit Exclude Dict.csproj" Id="e0b5eff5-3cac-41bd-b511-8300fb84ca2b">
     <BuildType Project="Release" />

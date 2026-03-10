@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using static Edit_Exclude_Dict.ThisAddIn;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Edit_Exclude_Dict
 {
@@ -40,6 +41,7 @@ namespace Edit_Exclude_Dict
 
             InitializeComponent();
             this.Shown += new System.EventHandler(this.lvLanguageLists_Shown);
+            lvLanguageLists.MouseDown += lvLanguageLists_MouseDown;
 
             // Load the .ini values.
             cbSelectLanguageGrps.Checked = iniFile.GetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups,
@@ -169,6 +171,24 @@ namespace Edit_Exclude_Dict
                         Close();
                         break;
                 }
+            }
+        }
+
+        private void lvLanguageLists_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Perform hit test to see what was clicked
+            ListViewHitTestInfo info = lvLanguageLists.HitTest(e.X, e.Y);
+
+            // Check if an item was clicked and if it was specifically the checkbox area
+            if (info.Item != null && info.Location == ListViewHitTestLocations.StateImage)
+            {
+                // Do nothing here and let the ListView's default behavior handle it
+                // (Single click on checkbox works normally)
+            }
+            else if (info.Item != null)
+            {
+                // User clicked text, Toggle the checkbox manually
+                info.Item.Checked = !info.Item.Checked;
             }
         }
 
