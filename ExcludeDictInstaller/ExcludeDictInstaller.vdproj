@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_611ACBB783004D5B8898136D422C88C5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_69BBD24DC5F52A255569BAAF0C9A2DE4"
         "OwnerKey" = "8:_D63032AF7AA04BA9863BD62FCD8870D5"
         "MsmSig" = "8:_UNDEFINED"
@@ -100,12 +106,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F5E2C6803EE2F537ADA9BBDA09D82CF0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D63032AF7AA04BA9863BD62FCD8870D5"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -145,6 +145,12 @@
         "OwnerKey" = "8:_803908AAAC6FEBDF28DEB366C32568B1"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F5E2C6803EE2F537ADA9BBDA09D82CF0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -163,6 +169,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -233,6 +247,26 @@
             {
             "SourcePath" = "8:..\\bin\\Release\\Edit Exclude Dict.vsto"
             "TargetName" = "8:Edit Exclude Dict.vsto"
+            "Tag" = "8:"
+            "Folder" = "8:_2807B3FA4AF04073A10FC3E7D447961A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_611ACBB783004D5B8898136D422C88C5"
+            {
+            "SourcePath" = "8:..\\Resources\\EditExcludeLists.ico"
+            "TargetName" = "8:EditExcludeLists.ico"
             "Tag" = "8:"
             "Folder" = "8:_2807B3FA4AF04073A10FC3E7D447961A"
             "Condition" = "8:"
@@ -566,14 +600,14 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ExcludeDictInstaller"
         "ProductCode" = "8:{1E773BF9-1298-4B02-B52E-DBA1B27B4C02}"
-        "PackageCode" = "8:{21EFD011-B7AA-4440-8B17-8C942B2A9C64}"
+        "PackageCode" = "8:{4E7AAD40-8EC1-45DC-BAE6-DCEE15071649}"
         "UpgradeCode" = "8:{0F89A73B-B669-4BF7-A967-6518C3F8580B}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:2.0.0"
         "Manufacturer" = "8:Thought-Sight Consulting Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -581,9 +615,9 @@
         "Subject" = "8:"
         "ARPCONTACT" = "8:Thought-Sight Consulting Inc."
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Exclude Dictionary Addin\\"
+        "ARPCOMMENTS" = "8:Exclude Dictionary Addin"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_611ACBB783004D5B8898136D422C88C5"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -1137,7 +1171,7 @@
                             "ContextData" = "8:1;True=1;False=0"
                             "Attributes" = "3:0"
                             "Setting" = "3:0"
-                            "Value" = "3:1"
+                            "Value" = "3:0"
                             "DefaultValue" = "3:1"
                             "UsePlugInResources" = "11:TRUE"
                             }
