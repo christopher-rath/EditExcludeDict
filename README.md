@@ -13,8 +13,11 @@ the Addin.  It will add a new "Exclude Dict" group to Word's Review
 tab on the ribbon.
 
 >**Edit Exclude Dict** version 2.0 for O365 Word and Windows 11
+
 >Copyright ©2024–2026 Christopher Rath.  All rights reserved.
+
 >Written by Christopher Rath <mailto:Christopher.Rath@ThoughtSight.com>.
+
 >Archived at https://github.com/christopher-rath/EditExcludeDict
 
 This application is free software; you can redistribute it and/or
