@@ -6,7 +6,7 @@ flagged as misspelled.  The problem with this feature is that it is
 almost impossible for regular users to access: it involves digging
 into hidden folders and editing obscurely-named files.
 
-==This add-in enables editing of those files by regular users.==
+*This add-in enables editing of those files by regular users.*
 
 >**Edit Exclude Dict** version 2.0 for O365 Word and Windows 11
 >Copyright ©2024–2026 Christopher Rath.  All rights reserved.
