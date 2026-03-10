@@ -1,0 +1,6 @@
+Note: to ensure that a user cannot attempt to install the Addin for all users:
+ * Right-click on the ExcludeDictInstaller project and choose View-->User Interface
+ * Then select Install-->Start-->Installation Folder
+ * in the Properties Panel (if it's not visible, right-click and choose Properties)
+   set "InstallAllUsersVisible" to "False"
+
