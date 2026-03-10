@@ -118,31 +118,26 @@ namespace Edit_Exclude_Dict
             iniFile.SetString(Constants.sIniSectionHead, Constants.sIniComment, Constants.sIniCommentTxt);
             iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsSelectLanguageGroups, cbSelectLanguageGrps.Checked);
             iniFile.SetBool(Constants.sIniSectionHead, Constants.sIniIsRememberSelection, cbRemeberSelection.Checked);
-            if (cbRemeberSelection.Checked)
+            // Determine which languages were selected and select/unselect the languages in the
+            // excludeDictionaries object.  If cbRemeberSelection.Checked is true, then also build
+            // the comma-separated list of the selected languages to save to the .ini file.
+            SelectedLanguages = string.Empty;
+            ExcludeDictionaries.Instance.ClearSelectedLanguages();
+            foreach (ListViewItem item in lvLanguageLists.Items)
             {
-                // Build a comma-separated list of the selected languages to save to the .ini file.
-                // As we build the list, also select/unselect the languages in the excludeDictionaries
-                // object.
-                SelectedLanguages = string.Empty;
-                ExcludeDictionaries.Instance.ClearSelectedLanguages();
-                foreach (ListViewItem item in lvLanguageLists.Items)
+                if (item.Checked)
                 {
-                    if (item.Checked)
+                    ExcludeDictionaries.Instance.SelectDict(item.SubItems[2].Text); // [2] is Filename
+                    if (cbRemeberSelection.Checked)
                     {
                         if (SelectedLanguages.Length > 0)
                         {
                             SelectedLanguages += ",";
                         }
-                        SelectedLanguages += item.SubItems[0].Text + item.SubItems[1].Text; // LCID prefix + LCID
-                        ExcludeDictionaries.Instance.SelectDict(item.SubItems[2].Text); // Filename
+                        // [0] is LCID prefix and [1] is LCID.
+                        SelectedLanguages += item.SubItems[0].Text + item.SubItems[1].Text; 
                     }
                 }
-            }
-            else
-            {
-                // This is the list of selected languages for the .ini file.  It has nothing to do
-                // with how the selected langauges are handled on the next EditExcludeList form.
-                SelectedLanguages = string.Empty;
             }
             iniFile.SetString(Constants.sIniSectionHead, Constants.sIniSelectedLanguages, SelectedLanguages);
 
