@@ -15,8 +15,20 @@ using static Edit_Exclude_Dict.ThisAddIn;
 
 namespace Edit_Exclude_Dict
 {
+    /// <summary>
+    /// Open the About dialog and display the AddIn's about text (loaded from
+    /// Resources/About_EditExcludeDict.rtf).
+    /// </summary>
     public partial class About : Form
     {
+        /// <summary>
+        /// The class constructor loads the about text from About_EditExcludeDict.rtf,
+        /// updates the version, platform, and copyright strings in the about text, and
+        /// then displays the text.
+        ///
+        /// In addition, it sets up the event handler for clicks on links in the about
+        /// text.
+        /// </summary>
         public About()
         {
             string aboutStr;
@@ -40,30 +52,47 @@ namespace Edit_Exclude_Dict
                     + @") reading About string from Properties file,\par{\tab{" + aboutStrFlPath + @"}}";
             }
 
-            // Note: URLs in the about text do not automatically render in the About dialog as clickable links.
-            // This is a known issue: https://github.com/dotnet/winforms/issues/3632
-            //
-            // 2023-12-24 (v0.7): I've implemented code to manually detect URLs as the panel is loaded.
             aboutStr = aboutStr.Replace(Constants.sVersionToRepl, Constants.sVersion);
             aboutStr = aboutStr.Replace(Constants.sPlatformToRepl, Constants.sPlatform);
             aboutStr = aboutStr.Replace(Constants.sCopyrightToRepl, Constants.sCopyright);
-            rtbAbout.DetectUrls = true;
+            // Toggling DetectUrls to true simply formats URLs as links; code behind to
+            // handle the clicks is also required (see "rtbAbout_LinkClicked" method below).
+            rtbAbout.DetectUrls = true; 
             rtbAbout.Rtf = aboutStr;
         }
 
-        
+        /// <summary>
+        /// When the [OK] button is clicked, close the dialog.  Note that the dialog's
+        /// Properties are set so that this button is identified as the 'Cancel' action,
+        /// which means that the user may also close the dialog by pressing the [Esc] key.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Open the License dialog when the [View License] button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnViewLicense_Click(object sender, EventArgs e)
         {
             License licenseForm = new License();
             licenseForm.ShowDialog();
+            // When we return from the License Form, restore focus to the [OK]
+            // button so that the user may either press the [Enter] key or [Esc]
+            // key to close the dialog.
             btnOK.Select();
         }
 
+        /// <summary>
+        /// When a URL in the About text is clicked, open the URL in the user's default browser.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rtbAbout_LinkClicked(object sender, System.Windows.Forms.LinkClickedEventArgs e)
         {
             // Use Process.Start to open the URL in the default browser

@@ -17,6 +17,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Edit_Exclude_Dict
 {
+    /// <summary>
+    /// This form presents the list of languages (that is, the Exclude Dictionary
+    /// lists) that are available in the user's Microsoft\UProof folder.  The user
+    /// then selects that languages they want to edit.  The selected list is then
+    /// used by the EditExcludeList form to produce a list of words to edit.
+    /// </summary>
     public partial class ChooseLanguage : Form
     {
         private readonly IniFile iniFile = new IniFile(Constants.sIniFileNm);
@@ -31,6 +37,12 @@ namespace Edit_Exclude_Dict
         private string[] SelectedLangsList = new string[0];
 #pragma warning restore IDE0044 // Add readonly modifier
 
+        /// <summary>
+        /// The ChooseLanguage constructor loads the list of available Exclude Dictionary
+        /// lists from the user's Microsoft\UProof folder.  It then checks the .ini file
+        /// to see which of those languages were previously selected and applies that
+        /// selection to the displayed list.
+        /// </summary>
         public ChooseLanguage()
         {
             List<string> availableDicts = new List<string>();
@@ -71,6 +83,9 @@ namespace Edit_Exclude_Dict
                 tmpArray[i, 2] = availableDicts[i];
             }
             // Add the three columns from the tmpArray to the lvLanguageLists ListView's three columns.
+            // Note that I tried preselecting the columns in the ListView designer, but that didn't
+            // work, so I had to add them here in code.  The column width of "-2" means to autosize
+            // the column to fit the content.
             lvLanguageLists.Columns.Add("Lang", -2);
             lvLanguageLists.Columns.Add("LCID", -2);
             lvLanguageLists.Columns.Add("Filename", -2);
@@ -169,6 +184,12 @@ namespace Edit_Exclude_Dict
             }
         }
 
+        /// <summary>
+        /// This event handler allows the user to check/uncheck a language by clicking anywhere
+        /// on the item row, rather than having to click exactly on the checkbox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lvLanguageLists_MouseDown(object sender, MouseEventArgs e)
         {
             // Perform hit test to see what was clicked
@@ -188,8 +209,8 @@ namespace Edit_Exclude_Dict
         }
 
         /// <summary>
-        /// Once this form has finished loading all its data, we set the isInitializing flag to false
-        /// to enable the ItemChecked handler.
+        /// Once this form has finished loading all its data, we set the isInitializing 
+        /// flag to false to enable the ItemChecked handler.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
