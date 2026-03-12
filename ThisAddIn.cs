@@ -12,6 +12,12 @@ using System.IO;
 
 namespace Edit_Exclude_Dict
 {
+    /// <summary>
+    /// This AddIn enables easy editing of MS Word's Exclude Dictionary(ies).  It
+    /// adds a new group to the Review tab of the ribbon, with a button to open the
+    /// the editing form.  The add-in saves its preferences in an .ini file located
+    /// in the user's MS Word Startup folder.
+    /// </summary>
     public partial class ThisAddIn
     {
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
@@ -22,6 +28,10 @@ namespace Edit_Exclude_Dict
         {
         }
 
+        /// <summary>
+        /// Force Word to load our ribbon changes.
+        /// </summary>
+        /// <returns></returns>
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
             return new Ribbon1();
@@ -41,6 +51,11 @@ namespace Edit_Exclude_Dict
 
         #endregion
 
+        /// <summary>
+        /// This class holds all the constant strings and file paths used by the add-in.
+        /// The use of a Constants class, as I've done here, does not appear to be a
+        /// common C# practice; but, it works well for me and so I've used it in this project.
+        /// </summary>
         public static class Constants
         {
             // Application strings.
@@ -52,7 +67,6 @@ namespace Edit_Exclude_Dict
             public const string sPlatformToRepl = @"[@Platform String@]";
             public const string sCopyrightToRepl = @"[@Copyright Date@]";
             public const string sAppIniFileNm = @".ExcludeDict.ini";
-            public const string sAuthorEmail = @"christopher@rath.ca";
             // Strings for the .ini file.
             public const string sIniSectionHead = @"ExcludeDict Settings";
             public const string sIniComment = @"Comment";
