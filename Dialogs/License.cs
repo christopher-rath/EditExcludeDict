@@ -14,8 +14,17 @@ using System.Windows.Forms;
 
 namespace Edit_Exclude_Dict
 {
+    /// <summary>
+    /// This form displays the GNU Lesser General Public License v2.1 under
+    /// which this AddIn is distributed.  The license text is loaded from
+    /// Resources/GNU_LGPL.rtf.
+    /// </summary>
     public partial class License : Form
     {
+        /// <summary>
+        /// The constructor loads the license text from Resources/GNU_LGPL.rtf
+        /// and displays it.
+        /// </summary>
         public License()
         {
             string licenseStr;
@@ -42,6 +51,13 @@ namespace Edit_Exclude_Dict
             rtbLicense.Rtf = licenseStr;
         }
 
+        /// <summary>
+        /// Close the form and return to the previous form (About).  This [OK] button
+        /// is also registered as the form's Cancel button , so that the user can also
+        /// close the form by pressing the [Esc] key.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
             Close();
