@@ -14,8 +14,17 @@ using System.Windows.Forms;
 
 namespace EditExcludeDict.Dialogs
 {
+    /// <summary>
+    /// Present the consolidated list of words from the Exclude Dictionary(ies) the
+    /// user has selected for editing.  The user may choose to return to the
+    /// ChooseLanguages form, cancel out completely, or save the edited list of words.
+    /// </summary>
     public partial class EditExcludeList : Form
     {
+        /// <summary>
+        /// The constructor retrieves the list of words to edit from the ExcludeDictionaries
+        /// class.
+        /// </summary>
         public EditExcludeList()
         {
             List<string> wordListToEdit;
@@ -29,16 +38,31 @@ namespace EditExcludeDict.Dialogs
             tbWordList.Select(0, 0); // Move the cursor to the start of the textbox.
         }
 
+        /// <summary>
+        /// Cancel completely out of the editing process and return to Word.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
 
+        /// <summary>
+        /// Return to the previous form (ChooseLanguages).
+        /// </summary>
+        /// <param name="e"></param>
         private void btnBack_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Retry;
         }
 
+        /// <summary>
+        /// Save the edited list of words back to the ExcludeDictionaries class and
+        /// return to Word.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             List<string> wordListToSave = new List<string>();
