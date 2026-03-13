@@ -12,7 +12,12 @@ using System.Collections.Generic;
 namespace Edit_Exclude_Dict
 {
     /// <summary>
-    /// 
+    /// This class holds Microsoft's Windows Language Code Identifier (LCID)
+    /// Reference table.  When I first started writing this AddIn, I thought
+    /// that I would need to look up the lanaguages; however, the way the AddIn
+    /// progressed, this table became redundant.  Rather than remove it from
+    /// the Solution, I'm leaving it in place in case a future enhancment
+    /// requires it.
     /// </summary>
     internal class MS_LCID
     {

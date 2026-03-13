@@ -18,6 +18,9 @@ using Office = Microsoft.Office.Core;
 namespace Edit_Exclude_Dict
 {
     [ComVisible(true)]
+
+    /// This class is a boilerplate class provided by the VSTO project
+    /// template.
     public class Ribbon1 : Office.IRibbonExtensibility
     {
         private Office.IRibbonUI ribbon;
