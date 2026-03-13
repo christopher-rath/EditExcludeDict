@@ -29,7 +29,7 @@ namespace Edit_Exclude_Dict
         private List<string> selectedDictFiles = new List<string>();
 
 #pragma warning disable CA2211
-        // The single instance of ExludeDictionaries.
+        // The single instance of ExcludeDictionaries.
         public static ExcludeDictionaries Instance = new ExcludeDictionaries();
 #pragma warning restore CA2211
 
@@ -59,6 +59,11 @@ namespace Edit_Exclude_Dict
             }
         }
 
+        /// <summary>
+        /// Get the list of available Exclude Dictionary .lex files that
+        /// can be selected for editing.
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetAvailableDictFiles()
         {
             return dictFiles;
