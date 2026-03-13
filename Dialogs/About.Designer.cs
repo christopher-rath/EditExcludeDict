@@ -76,6 +76,7 @@ namespace Edit_Exclude_Dict
             // 
             // About
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
