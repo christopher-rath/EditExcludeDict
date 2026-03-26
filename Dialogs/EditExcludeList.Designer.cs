@@ -105,7 +105,6 @@ namespace EditExcludeDict.Dialogs
             // 
             // EditExcludeList
             // 
-            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
