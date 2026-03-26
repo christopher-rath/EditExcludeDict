@@ -67,7 +67,7 @@ namespace Edit_Exclude_Dict
             this.btnCancel.Location = new System.Drawing.Point(328, 424);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 32);
-            this.btnCancel.TabIndex = 3;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -77,7 +77,7 @@ namespace Edit_Exclude_Dict
             this.btnNext.Location = new System.Drawing.Point(423, 424);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 32);
-            this.btnNext.TabIndex = 4;
+            this.btnNext.TabIndex = 1;
             this.btnNext.Text = "&Next";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
@@ -88,7 +88,7 @@ namespace Edit_Exclude_Dict
             this.cbRemeberSelection.Location = new System.Drawing.Point(24, 441);
             this.cbRemeberSelection.Name = "cbRemeberSelection";
             this.cbRemeberSelection.Size = new System.Drawing.Size(260, 24);
-            this.cbRemeberSelection.TabIndex = 5;
+            this.cbRemeberSelection.TabIndex = 3;
             this.cbRemeberSelection.Text = "Remember Language Selection";
             this.cbRemeberSelection.UseVisualStyleBackColor = true;
             // 
@@ -98,7 +98,7 @@ namespace Edit_Exclude_Dict
             this.cbSelectLanguageGrps.Location = new System.Drawing.Point(24, 410);
             this.cbSelectLanguageGrps.Name = "cbSelectLanguageGrps";
             this.cbSelectLanguageGrps.Size = new System.Drawing.Size(239, 24);
-            this.cbSelectLanguageGrps.TabIndex = 6;
+            this.cbSelectLanguageGrps.TabIndex = 2;
             this.cbSelectLanguageGrps.Text = "Select Groups of Languages";
             this.cbSelectLanguageGrps.UseVisualStyleBackColor = true;
             // 
@@ -112,7 +112,7 @@ namespace Edit_Exclude_Dict
             this.lvLanguageLists.Name = "lvLanguageLists";
             this.lvLanguageLists.ShowGroups = false;
             this.lvLanguageLists.Size = new System.Drawing.Size(490, 343);
-            this.lvLanguageLists.TabIndex = 7;
+            this.lvLanguageLists.TabIndex = 4;
             this.lvLanguageLists.UseCompatibleStateImageBehavior = false;
             this.lvLanguageLists.View = System.Windows.Forms.View.Details;
             this.lvLanguageLists.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvLanguageLists_ItemChecked);
