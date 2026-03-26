@@ -21,3 +21,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.About.btnOK_Click(System.Object,System.EventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.About.rtbAbout_LinkClicked(System.Object,System.Windows.Forms.LinkClickedEventArgs)")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:Edit_Exclude_Dict.ChooseLanguage.lvLanguageLists_MouseDown(System.Object,System.Windows.Forms.MouseEventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Personal coding style", Scope = "member", Target = "~M:EditExcludeDict.Dialogs.EditExcludeList.tbWordList_TextChanged(System.Object,System.EventArgs)")]

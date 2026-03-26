@@ -18,9 +18,14 @@ namespace EditExcludeDict.Dialogs
     /// Present the consolidated list of words from the Exclude Dictionary(ies) the
     /// user has selected for editing.  The user may choose to return to the
     /// ChooseLanguages form, cancel out completely, or save the edited list of words.
+    ///
+    /// Caution: do not set the AcceptButton property to [Enter], or the user won't be
+    /// able to add new words to the list.
     /// </summary>
     public partial class EditExcludeList : Form
     {
+        private bool WordListEdited = false; // Track whether the user has made changes to the word list.
+
         /// <summary>
         /// The constructor retrieves the list of words to edit from the ExcludeDictionaries
         /// class.
@@ -36,6 +41,7 @@ namespace EditExcludeDict.Dialogs
             wordListToEdit = ExcludeDictionaries.Instance.GetConsolidatedWordList();
             tbWordList.Text = string.Join(Environment.NewLine, wordListToEdit);
             tbWordList.Select(0, 0); // Move the cursor to the start of the textbox.
+            WordListEdited = false;
         }
 
         /// <summary>
@@ -45,21 +51,65 @@ namespace EditExcludeDict.Dialogs
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+            bool confirmCancel = false;
+
+            if (WordListEdited)
+            {
+                confirmCancel = false;
+                confirmCancel = MessageBox.Show("You may have unsaved changes to the word list. If you cancel "
+                                            + "you will lose those changes.  Do you want to cancel the "
+                                            + "editing process?", "Confirm Cancel", MessageBoxButtons.YesNo,
+                                            MessageBoxIcon.Warning) == DialogResult.Yes;
+            }
+            else
+            {
+                confirmCancel = true;
+            }
+            if (confirmCancel)
+            {
+                DialogResult = DialogResult.Cancel;
+            }
+            else
+            {
+                DialogResult = DialogResult.None;
+            }
         }
 
         /// <summary>
-        /// Return to the previous form (ChooseLanguages).
+        /// Return to the previous form (ChooseLanguages); however, if the word list has
+        /// been edited, then ask the user to confirm before exiting this dialog.
         /// </summary>
         /// <param name="e"></param>
         private void btnBack_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Retry;
+            bool confirmBack = false;
+
+            if (WordListEdited)
+            {
+                confirmBack = false;
+                confirmBack = MessageBox.Show("You may have unsaved changes to the word list. If you go back "
+                                            + "you will lose those changes.  Do you want to return to the "
+                                            + "Choose Language dialog?", "Confirm Back", MessageBoxButtons.YesNo,
+                                            MessageBoxIcon.Warning) == DialogResult.Yes;
+            }
+            else
+            {
+                confirmBack = true;
+            }
+            if (confirmBack)
+            {
+                DialogResult = DialogResult.Retry;
+            }
+            else
+            {
+                DialogResult = DialogResult.None;
+            }
         }
 
         /// <summary>
         /// Save the edited list of words back to the ExcludeDictionaries class and
-        /// return to Word.
+        /// return to Word; however, if the word list has been edited, then ask the
+        /// user to confirm before exiting this dialog.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -76,7 +126,20 @@ namespace EditExcludeDict.Dialogs
 
             ExcludeDictionaries.Instance.PutConsolidatedWordList(wordListToSave);
 
+            WordListEdited = false;
             DialogResult = DialogResult.OK;
+        }
+
+        /// <summary>
+        /// If the user types anything in the WordList textbox, then set the WordListEdited
+        /// flag to true.  Note that there is no "undo" for this process; so, a user may manually
+        /// undo the change but this flag will remain true.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbWordList_TextChanged(object sender, EventArgs e)
+        {
+            WordListEdited = true;
         }
     }
 }

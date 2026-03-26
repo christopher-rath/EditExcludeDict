@@ -54,6 +54,7 @@ namespace EditExcludeDict.Dialogs
             this.tbWordList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbWordList.Size = new System.Drawing.Size(311, 640);
             this.tbWordList.TabIndex = 0;
+            this.tbWordList.TextChanged += new System.EventHandler(this.tbWordList_TextChanged);
             // 
             // btnBack
             // 
