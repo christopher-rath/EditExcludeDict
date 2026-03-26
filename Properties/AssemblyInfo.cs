@@ -1,4 +1,13 @@
-﻿using System.Reflection;
+﻿#region Copyright
+// Edit Exclude Dict -- A Microsoft Word add-in to edit the UProof Exclude Dictionary word lists.
+// Author: Christopher Rath <christopher@rath.ca>
+// Archived at: https://github.com/christopher-rath/EditExcludeDict
+// Copyright 2024-2026 © Christopher Rath
+// Distributed under the GNU Lesser General Public License v2.1
+//     (see the license text).
+// Warranty: None, see the license.
+#endregion
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -33,6 +42,6 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.1.0.0")]
+[assembly: AssemblyFileVersion("2.1.0.0")]
 
