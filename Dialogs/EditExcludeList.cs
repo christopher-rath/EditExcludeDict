@@ -11,7 +11,7 @@ using Edit_Exclude_Dict;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.InteropServices;
 
 namespace EditExcludeDict.Dialogs
 {
@@ -25,7 +25,16 @@ namespace EditExcludeDict.Dialogs
     /// </summary>
     public partial class EditExcludeList : Form
     {
-        private bool WordListEdited = false; // Track whether the user has made changes to the word list.
+#region SetTextBoxPadding
+        // Declarations needed to support the SetTextBoxPadding() method, below.
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, ref RECT rect);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT { public int Left, Top, Right, Bottom; }
+#endregion SetTextBoxPadding
+        // Track whether the user has made changes to the word list.
+        private bool WordListEdited = false; 
 
         /// <summary>
         /// The constructor retrieves the list of words to edit from the ExcludeDictionaries
@@ -37,6 +46,7 @@ namespace EditExcludeDict.Dialogs
 
             InitializeComponent();
 
+            SetTextBoxPadding(tbWordList, 10, 5, 0, 0); // Left, Top, Right, Bottom
             // Retrieve the list of words to edit from the ExcludeDictionaries class.
             // Then copy that list into the tbWordList textbox for the user to edit.
             wordListToEdit = ExcludeDictionaries.Instance.GetConsolidatedWordList();
@@ -257,6 +267,27 @@ namespace EditExcludeDict.Dialogs
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Because a WPF TextBox does not expose the inner padding property of a Win32 textbox,
+        /// the only way to adjust the padding property (to add whitespace between the words in the
+        /// textbox and its border) is to use Platform Invoke (P/Invoke) to send a native Windows
+        /// message (EM_SETRECT) to the TextBox control's underlying Win32 handle; which allows you
+        /// to define the text's bounding rectangle.
+        /// </summary>
+        /// <param name="textBox">The TextBox widget to be adjusted.</param>
+        /// <param name="left">The amount of padding on the left.</param>
+        /// <param name="top">The amount of padding on the top.</param>
+        /// <param name="right">The amount of padding on the right.</param>
+        /// <param name="bottom">The amount of padding on the bottom.</param>
+        private void SetTextBoxPadding(TextBox textBox, int left, int top, int right, int bottom)
+        {
+            RECT rect = new RECT { Left = left,
+                                   Top = top,
+                                   Right = textBox.ClientSize.Width - right,
+                                   Bottom = textBox.ClientSize.Height - bottom };
+            SendMessage(textBox.Handle, 0xB3, 0, ref rect); // EM_SETRECT
         }
     }
 }
