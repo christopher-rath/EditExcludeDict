@@ -55,6 +55,7 @@ namespace EditExcludeDict.Dialogs
             this.tbWordList.Size = new System.Drawing.Size(311, 640);
             this.tbWordList.TabIndex = 0;
             this.tbWordList.TextChanged += new System.EventHandler(this.tbWordList_TextChanged);
+            this.tbWordList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWordList_KeyDown);
             // 
             // btnBack
             // 

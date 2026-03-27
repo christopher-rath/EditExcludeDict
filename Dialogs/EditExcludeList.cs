@@ -11,6 +11,7 @@ using Edit_Exclude_Dict;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace EditExcludeDict.Dialogs
 {
@@ -41,6 +42,7 @@ namespace EditExcludeDict.Dialogs
             wordListToEdit = ExcludeDictionaries.Instance.GetConsolidatedWordList();
             tbWordList.Text = string.Join(Environment.NewLine, wordListToEdit);
             tbWordList.Select(0, 0); // Move the cursor to the start of the textbox.
+            tbWordList.ScrollToCaret();
             WordListEdited = false;
         }
 
@@ -140,6 +142,121 @@ namespace EditExcludeDict.Dialogs
         private void tbWordList_TextChanged(object sender, EventArgs e)
         {
             WordListEdited = true;
+        }
+
+        /// <summary>
+        /// Implement basic Emacs keybindings to move the cursor around within
+        /// the TextBox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbWordList_KeyDown(object sender, KeyEventArgs e)
+        {
+            System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
+            int curCaretIndex = tb.SelectionStart;
+            int curLine = tb.GetLineFromCharIndex(curCaretIndex);
+            int curLineLength = tb.Lines[curLine].Length;
+            int curLineStartCharIndex = tb.GetFirstCharIndexFromLine(curLine);
+            int curLineEndCharIndex = curLineStartCharIndex + curLineLength;
+            // Calculate the relative column position from the start of the current line
+            int curColumn = curCaretIndex - curLineStartCharIndex;
+
+            if (e.Alt && e.Shift)
+            {
+                    switch (e.KeyCode)
+                    {
+                        case Keys.Oemcomma: // [Shift][Alt][<] Start of buffer
+                            tb.Select(0, 0);
+                            tb.ScrollToCaret();
+                            e.Handled = true;
+                            e.SuppressKeyPress = true;
+                            break;
+                        case Keys.OemPeriod: // [Shift][Alt][>] End of buffer
+                        tb.Select(tb.Text.Length, 0);
+                            tb.ScrollToCaret();
+                            e.Handled = true;
+                            e.SuppressKeyPress = true;
+                            break;
+                    }
+            }
+            else if (e.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F: // [Ctrl][F] Forward char
+                        if (tb.SelectionStart < tb.Text.Length)
+                        {
+                            tb.SelectionStart++;
+                            tb.ScrollToCaret();
+                        }
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
+                        break;
+                    case Keys.B: // [Ctrl][B] Backward char
+                        if (tb.SelectionStart > 0)
+                        {
+                            tb.SelectionStart--;
+                            tb.ScrollToCaret();
+                        }
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
+                        break;
+                    case Keys.A: // [Ctrl][A] Beginning of line
+                        tb.SelectionStart = curLineStartCharIndex;
+                        tb.ScrollToCaret();
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
+                        break;
+                    case Keys.E: // [Ctrl][E] End of line
+                        tb.Select(curLineEndCharIndex, 0);
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
+                        break;
+                    case Keys.N: // [Ctrl][N] fNext line 
+                        // Check if there is a next line
+                        if (curLine < tb.Lines.Length - 1)
+                        {
+                            int nextLineIndex = curLine + 1;
+                            int nextLineStartCharIndex = tb.GetFirstCharIndexFromLine(nextLineIndex);
+
+                            // Determine the target index in the next line.
+                            // If the next line is shorter than the current column position, go to the
+                            // end of the next line.
+                            int nextLineLength = tb.Lines[nextLineIndex].Length;
+                            int targetIndex = (curColumn <= nextLineLength) ? nextLineStartCharIndex + curColumn : nextLineStartCharIndex + nextLineLength;
+
+                            // Move the caret
+                            tb.Select(targetIndex, 0);
+                            tb.ScrollToCaret(); // Ensure the new position is visible
+
+                            // Crucially, set e.Handled and e.SuppressKeyPress to true 
+                            // to stop the default TextBox down arrow behavior
+                        }
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
+                        break;
+                    case Keys.P: // Previous line
+                        // Check to see that we're not already on the first line.
+                        if (curLine > 0)
+                        {
+                            // Calculate the index of the first character of the previous line
+                            int prevLine = curLine - 1;
+                            int prevLineStartIndex = tb.GetFirstCharIndexFromLine(prevLine);
+
+                            // Determine the character index on the previous line that corresponds to the column
+                            // Need to consider if the previous line is shorter than the current column position
+                            int prevLineLength = (prevLine < tb.Lines.Length) ? tb.Lines[prevLine].Length : 0;
+                            int targetIndexInPrevLine = prevLineStartIndex + Math.Min(curColumn, prevLineLength);
+
+                            // Move the caret to the target index
+                            tb.Select(targetIndexInPrevLine, 0);
+                            tb.ScrollToCaret(); // Ensure the caret is visible
+                        }
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
+                        break;
+                }
+            }
         }
     }
 }
