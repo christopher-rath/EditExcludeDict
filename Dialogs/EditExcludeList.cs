@@ -156,7 +156,7 @@ namespace EditExcludeDict.Dialogs
 
         /// <summary>
         /// Implement basic Emacs keybindings to move the cursor around within
-        /// the TextBox.
+        /// the TextBox: [A]<, [A]>, ^f, ^b, ^a, ^e, ^n, ^p
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -222,7 +222,7 @@ namespace EditExcludeDict.Dialogs
                         e.Handled = true;
                         e.SuppressKeyPress = true;
                         break;
-                    case Keys.N: // [Ctrl][N] fNext line 
+                    case Keys.N: // [Ctrl][N] Next line 
                         // Check if there is a next line
                         if (curLine < tb.Lines.Length - 1)
                         {
