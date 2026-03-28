@@ -71,15 +71,16 @@ namespace EditExcludeDict.Dialogs
             // 
             this.lblTitle.BackColor = System.Drawing.SystemColors.Control;
             this.lblTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lblTitle.Enabled = false;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(340, 12);
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lblTitle.Location = new System.Drawing.Point(329, 12);
             this.lblTitle.Multiline = true;
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.ReadOnly = true;
             this.lblTitle.ShortcutsEnabled = false;
-            this.lblTitle.Size = new System.Drawing.Size(140, 374);
-            this.lblTitle.TabIndex = 4;
+            this.lblTitle.Size = new System.Drawing.Size(141, 322);
+            this.lblTitle.TabIndex = 5;
+            this.lblTitle.TabStop = false;
             this.lblTitle.Text = "This is the combined list of words from the language lists chosen on the previous" +
     " form.  \r\n\r\nEdit the list and press [Save] to write the combined list back to ea" +
     "ch of the selected langauge lists.";

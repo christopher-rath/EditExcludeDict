@@ -10,8 +10,10 @@
 using Edit_Exclude_Dict;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace EditExcludeDict.Dialogs
 {
